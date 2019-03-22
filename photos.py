@@ -1,3 +1,4 @@
+import os
 import piexif
 from datetime import datetime
 
@@ -13,8 +14,13 @@ def get_photo_details(file_path: str) -> dict():
     return piexif.load(file_path)
     
 
-def list_photos_dates_in_folder():
-    pass
+def list_photos_dates_in_folder(folder_path: str) -> None:
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith('JPG'):
+                file_path = os.path.join(root, file)
+                print(file, get_photo_date(file_path))
 
 if __name__ == '__main__':
-    print(get_photo_date(r'C:\Users\DOM\Pictures\165___07\IMG_0676.JPG'))
+    list_photos_dates_in_folder(r'C:\Users\DOM\Pictures\165___07')
+    # print(get_photo_date(r'C:\Users\DOM\Pictures\165___07\IMG_0676.JPG'))
